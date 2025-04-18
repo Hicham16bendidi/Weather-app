@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .weather {
+            padding: 20px;
+        }
+        .temp, .city {
+            margin: 0;
+        }
+        .icon img {
+            max-width: 100%;
+        }
+        .forecast {
+            margin-top: 20px;
+        }
+        .forecast-day {
+            display: inline-block;
+            width: 100px;
+            text-align: center;
+            margin: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body
+    style="
+      background-image: url('{% if exception_occurred %}https://wallpapers.com/images/featured/sky-mvehfqz6w2ges2dj.jpg{% else %}{{ image_url }}{% endif %}');
+      background-size: cover;
+      background-position: center;
+    "
+  >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'home' %}">WeatherApp</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'update_preferences' %}">Preferences <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'logout' %}">logout <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1 class="heading">Weather App</h1>
+
+      <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="Enter City" />
+        <button type="submit" class="btn">Search</button>
+      </form>
+      <div class="weather">
+        <div class="row">
+            <div class="col-md-6 left">
+                <h2 class="temp">{{ temp }} &#176;{{ unit_symbol }}</h2>
+                <h2 class="city">{{ city }}</h2>
+            </div>
+            <div class="col-md-6 right">
+                <div class="icon">
+                    <p>
+                        <img 
+                            src="http://openweathermap.org/img/w/{{ icon }}.png"
+                            width="120px"
+                        />
+                    </p>
+                </div>
+                <div class="condition">
+                    <p>{{ description }}</p>
+                    <p>{{ day }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="forecast">
+            {% for forecast in forecast_list %}
+                <div class="forecast-day col-md-2">
+                    <p>{{ forecast.date }}</p>
+                    <img src="http://openweathermap.org/img/wn/{{ forecast.icon }}@2x.png" alt="forecast icon">
+                    <p>{{ forecast.description }}</p>
+                    <p>{{ forecast.temp }} °{{ unit_symbol }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+
+    {% if exception_occurred %}
+    <script>
+      window.onload = function () {
+        alert("City information is not available to Weather API");
+      };
+    </script>
+    {% endif %}
+    
+
+    
+  </body>
+</html>

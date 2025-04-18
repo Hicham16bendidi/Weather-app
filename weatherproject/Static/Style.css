@@ -1,0 +1,128 @@
+:root {
+    --white: #ffffff;
+    --off-white: #e5e5e5;
+    --transp-white-1: rgba(255, 255, 255, 0.25);
+    --transp-white-2: rgba(255, 255, 255, 0.18);
+    --blue-1: #62b8f5;
+    --blue-2: #4475ef;
+    --shadow: rgba(3, 46, 87, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(5, 41, 51);
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 1rem;
+    margin-top: 1rem;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    background: var(--transp-white-2);
+    backdrop-filter: blur(10px);
+    margin: 5rem auto;
+    padding: 2rem;
+    border: 2px solid var(--transp-white-2);
+    border-radius: 10px;
+    color: rgb(5, 41, 51);
+}
+
+input,
+.btn {
+    padding: 0.5rem;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid white;
+}
+
+input::placeholder {
+    color: var(--off-white);
+}
+
+.btn {
+    cursor: pointer;
+    transition: 0.3s;
+    color: var(--blue-2);
+    background-color: transparent;
+    border-radius: 0.3em;
+    border: 2px solid #04009A;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    background-color: rgb(5, 41, 51);
+    color: #fff;
+}
+
+.weather {
+    margin-top: 3rem;
+}
+
+.left, .right {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    background: var(--transp-white-2);
+    backdrop-filter: blur(10px);
+}
+
+.temp, .city {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+
+
+
+
+@media only screen and (max-width: 700px) {
+    .container {
+        width: 90%;
+        padding: 1rem;
+    }
+    .weather {
+        flex-direction: column;
+    }
+    .left, .right {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    form {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Body and background image */
+body {
+    background-image: url('https://images.pexels.com/photos/3008509/pexels-photo-3008509.jpeg?auto=compress&cs=tinysrgb&w=1600');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
